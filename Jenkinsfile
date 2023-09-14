@@ -25,7 +25,7 @@ pipeline {
             steps {
                 // Build Docker image
                 script {
-                    def dockerImage = docker.build("your-docker-image-name:${BUILD_NUMBER}")
+                    def dockerImage = docker.build("test-image:${BUILD_NUMBER}")
                     dockerImage.push()
                 }
             }
