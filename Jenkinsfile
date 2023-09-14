@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 // Deploy to Kubernetes using kubectl
-                sh 'kubectl apply -f path/to/kubernetes/deployment.yaml'
+                sh 'kubectl apply -f /home/ubuntu/deployment.yaml'
             }
         }
     }
