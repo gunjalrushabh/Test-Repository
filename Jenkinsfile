@@ -37,8 +37,8 @@ pipeline {
                         sh "docker tag test-image:${BUILD_NUMBER} $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
 
                         // Push the Docker image to Docker Hub
-                        sh "docker push $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
-                    //dockerImage.push()
+                        //sh "docker push $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
+                    dockerImage.push()
                 }
             }
         }
