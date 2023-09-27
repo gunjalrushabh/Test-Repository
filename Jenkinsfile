@@ -28,6 +28,12 @@ pipeline {
                 // Build Docker image
                 script {
                     def dockerImage = docker.build("test-image:${BUILD_NUMBER}")
+
+                    // Authenticate with Docker Hub using the credentials
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    }
+                    
                     dockerImage.push()
                 }
             }
