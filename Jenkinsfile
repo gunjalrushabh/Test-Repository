@@ -11,6 +11,8 @@ pipeline {
             steps {
                 // Check out the code from Git
                 git 'https://github.com/gunjalrushabh/Test-Repository.git'
+
+                sh 'chmod +x gradlew'
             }
         }
         
