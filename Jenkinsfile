@@ -33,8 +33,12 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     }
-                    
-                    dockerImage.push()
+                    // Tag the Docker image with your Docker Hub username and repository
+                        sh "docker tag test-image:${BUILD_NUMBER} $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
+
+                        // Push the Docker image to Docker Hub
+                        sh "docker push $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
+                    //dockerImage.push()
                 }
             }
         }
