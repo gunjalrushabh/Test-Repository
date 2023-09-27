@@ -45,10 +45,10 @@ pipeline {
         
         stage('Deploy to Kubernetes') {
             steps {
-                // Deploy to Kubernetes using kubectl
-                sshagent(credentials: ['jenkins-ssh-key']) {
-            sh 'ssh user@3.111.216.54 "kubectl apply -f /home/ubuntu/deployment.yaml"'
-            }
+        // Deploy to Kubernetes on a remote server using SSH
+        sshagent(credentials: ['jenkins-ssh-key']) {
+            sh 'ssh user@kubernetes-master-ip "kubectl apply -f /home/ubuntu/deployment.yaml"'
+        }
         }
     }
 }
