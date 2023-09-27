@@ -30,9 +30,9 @@ pipeline {
                     def dockerImage = docker.build("test-image:${BUILD_NUMBER}")
 
                     // Authenticate with Docker Hub using the credentials
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    }
+                   withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+    }
                     // Tag the Docker image with your Docker Hub username and repository
                         sh "docker tag test-image:${BUILD_NUMBER} $DOCKER_USERNAME/test-image:${BUILD_NUMBER}"
 
