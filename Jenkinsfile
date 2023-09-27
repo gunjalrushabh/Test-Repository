@@ -45,10 +45,16 @@ pipeline {
         
         stage('Deploy to Kubernetes') {
             steps {
+                script {
+            // Define your SSH credentials ID
+            def sshCredentialsId = 'jenkins-ssh-key'
         // Deploy to Kubernetes on a remote server using SSH
-        sshagent(credentials: ['jenkins-ssh-key']) {
-            sh 'ssh user@kubernetes-master-ip "kubectl apply -f /home/ubuntu/deployment.yaml"'
-        }
+         // Use the sshagent step to run commands inside an SSH agent
+            sshagent(credentials: [sshUserPrivateKey(credentialsId: sshCredentialsId, keyFileVariable: 'SSH_KEY')]) {
+                // You can now run SSH commands securely using the SSH_KEY variable
+                sh 'ssh -i $SSH_KEY user@remote-server "kubectl apply -f /home/ubuntu/deployment.yaml"'
+            }
+                }
         }
     }
 }
